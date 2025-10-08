@@ -1,0 +1,45 @@
+{
+    "GET /api": {
+      "description": "serves up a json representation of all the available endpoints of the api"
+    },
+    "GET /api/users": {
+      "description": "serves an array of all users",
+      "queries": [],
+      "exampleResponse": {
+        "users": [{"username": "default-user-1"}]
+      }
+    },
+    "GET /api/events": {
+      "description": "serves an array of all events",
+      "queries": [],
+      "exampleResponse": {
+        "events": [{
+            "title": "Event 1",
+            "description": "Event 1",
+            "location": "London",
+            "event_date": "2025-12-01",
+            "username": "default-user-1"
+            }]
+      }
+    },
+    "GET /api/events/:username": {
+      "description": "serves an array of all events a specified user has posted",
+      "queries": [],
+      "exampleResponse": {
+        "events": [{
+            "title": "Event 1",
+            "description": "Event 1",
+            "location": "London",
+            "event_date": "2025-12-01",
+            "username": "default-user-1"
+            },
+            {
+            "title": "Event 2",
+            "description": "Event 2",
+            "location": "London",
+            "event_date": "2025-12-01",
+            "username": "default-user-1"
+        }]
+      }
+    }
+}
