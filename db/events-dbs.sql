@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS events_dbs;
+CREATE DATABASE events_dbs;
