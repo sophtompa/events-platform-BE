@@ -30,11 +30,11 @@ function createTables ({eventsData, usersData}) {
     return db.query(
         `CREATE TABLE events (
         id SERIAL PRIMARY KEY,
-        title VARCHAR(300) NOT NULL,
+        title VARCHAR(300) UNIQUE NOT NULL,
         description VARCHAR(300) NOT NULL,
         location VARCHAR(300) NOT NULL,
         event_date DATE NOT NULL,
-        username VARCHAR(300) NOT NULL REFERENCES users(username));`
+        username VARCHAR(300) NOT NULL REFERENCES users(username) ON DELETE CASCADE);`
     );
     })
     .then(()=>{

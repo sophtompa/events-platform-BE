@@ -33,15 +33,31 @@ const sendUser = (username) => {
 const sendEvent = (title, description, location, event_date, username) => {
     return db.query(`INSERT INTO events(title, description, location, event_date, username) VALUES ($1, $2, $3, $4, $5) RETURNING title, description, location, event_date, username`, [title, description, location, event_date, username])
     .then(({rows}) => {
-        const row = rows[0];
-        return {
-            title: row.title,
-            description: row.description,
-            location: row.location,
-            event_date: row.event_date,
-            username: row.username
-          };
-    });
+        return rows[0] })
+        .catch(err => {
+            if(err.code === '23505') {
+                return Promise.reject({status: 400, msg: 'Event title already exists'})
+            }
+            return Promise.reject(err);
+        })
 };
 
-module.exports = { fetchUsers, fetchEvents, fetchEventsByUser, sendUser, sendEvent }
+const removeUser = (username) => {
+    return db.query(
+        `DELETE FROM users WHERE username = $1 RETURNING username`, [username])
+    .then(({rows}) => {
+        return rows[0];
+    })
+}
+
+const removeEventByTitle = (title) => {
+    return db.query(
+        `DELETE FROM events WHERE title = $1 RETURNING title, description, location, event_date, username`, [title]
+    )
+    .then(({rows}) => {
+        return rows[0];
+    })
+}
+
+
+module.exports = { fetchUsers, fetchEvents, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle }
