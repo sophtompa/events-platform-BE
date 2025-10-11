@@ -1,5 +1,5 @@
 const endpoints = require("../endpoints.json")
-const {fetchUsers, fetchEvents, fetchEventsByUser, sendUser, sendEvent} = require("../models/events.models")
+const {fetchUsers, fetchEvents, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle} = require("../models/events.models")
 
 const getEndpoints = (req, res) => {
     return res.status(200).send({endpoints});
@@ -69,6 +69,24 @@ const postEvent = (req,res, next) => {
     })
 }
 
+const deleteUser = (req, res, next) => {
+    const {username} = req.params;
+    removeUser(username).then((rows) => {
+        return res.status(204).send(rows)
+    })
+    .catch((err) => {
+        next(err);
+    })
+}
 
+const deleteEventByTitle = (req, res, next) => {
+    const {title} = req.params;
+    removeEventByTitle(title).then((rows) => {
+        return res.status(204).send(rows)
+    })
+    .catch((err) => {
+        next(err);
+    })
+}
 
-module.exports = { getEndpoints, getEvents, getUsers, getEventsByUser, postUser, postEvent }
+module.exports = { getEndpoints, getEvents, getUsers, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle }
