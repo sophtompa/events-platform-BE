@@ -1,5 +1,5 @@
 const endpoints = require("../endpoints.json")
-const {fetchUsers, fetchEvents, fetchEventsByUser} = require("../models/events.models")
+const {fetchUsers, fetchEvents, fetchEventsByUser, sendUser, sendEvent} = require("../models/events.models")
 
 const getEndpoints = (req, res) => {
     return res.status(200).send({endpoints});
@@ -37,6 +37,38 @@ const getEventsByUser = (req, res, next) => {
     })
 };
 
+const postUser = (req,res, next) => {
+    const {username} = req.body;
+
+    if(!username) {
+        return res.status(400).json({error: 'Missing username'})
+    }
+
+    sendUser(username)
+    .then((user) => {
+        return res.status(201).json({user});
+    })
+    .catch((err) => {
+        next(err);
+    })
+}
+
+const postEvent = (req,res, next) => {
+    const {title, description, location, event_date, username} = req.body;
+    
+    if(!title || !description || !location || !event_date || !username) {
+        return res.status(400).json({error: 'Missing required fields'})
+    }
+
+    sendEvent(title, description, location, event_date, username)
+    .then((event) => {
+        return res.status(201).json({event});
+    })
+    .catch((err) => {
+        next(err);
+    })
+}
 
 
-module.exports = { getEndpoints, getEvents, getUsers, getEventsByUser }
+
+module.exports = { getEndpoints, getEvents, getUsers, getEventsByUser, postUser, postEvent }
