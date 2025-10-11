@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const db = require("./db/connection.js")
 const endpoints = require("./endpoints.json")
-const { getEndpoints, getUsers, getEvents, getEventsByUser } = require('./controllers/events.controllers.js');
+const { getEndpoints, getUsers, getEvents, getEventsByUser, postUser, postEvent } = require('./controllers/events.controllers.js');
 
 app.use(cors());
 
@@ -17,6 +17,9 @@ app.get("/api/events", getEvents)
 
 app.get("/api/events/:username", getEventsByUser)
 
+app.post("/api/users", postUser)
+
+app.post("/api/events", postEvent)
 
 
 module.exports = app;
