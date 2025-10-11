@@ -3,7 +3,8 @@ const express = require('express');
 const app = express();
 const db = require("./db/connection.js")
 const endpoints = require("./endpoints.json")
-const { getEndpoints, getUsers, getEvents, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle } = require('./controllers/events.controllers.js');
+const { getEndpoints, getUsers, getEvents, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound } = require('./controllers/events.controllers.js');
+const { handlePsqlError, handleCustomError, handleServerError } = require('./controllers/errors.controllers.js')
 
 app.use(cors());
 
@@ -24,5 +25,13 @@ app.post("/api/events", postEvent)
 app.delete("/api/users/:username", deleteUser)
 
 app.delete("/api/events/:title", deleteEventByTitle)
+
+app.all('*', pathNotFound);
+
+app.use(handlePsqlError);
+
+app.use(handleCustomError);
+
+app.use(handleServerError);
 
 module.exports = app;

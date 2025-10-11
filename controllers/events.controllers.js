@@ -89,4 +89,8 @@ const deleteEventByTitle = (req, res, next) => {
     })
 }
 
-module.exports = { getEndpoints, getEvents, getUsers, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle }
+const pathNotFound = (req, res, next) => {
+    res.status(404).send({ msg: 'path not found' });
+};
+
+module.exports = { getEndpoints, getEvents, getUsers, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound }
