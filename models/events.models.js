@@ -48,7 +48,7 @@ const removeUser = (username) => {
     .then(({rows}) => {
         return rows[0];
     })
-}
+};
 
 const removeEventByTitle = (title) => {
     return db.query(
@@ -57,7 +57,7 @@ const removeEventByTitle = (title) => {
     .then(({rows}) => {
         return rows[0];
     })
-}
+};
 
 
 module.exports = { fetchUsers, fetchEvents, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle }
