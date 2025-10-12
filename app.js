@@ -6,6 +6,8 @@ const endpoints = require("./endpoints.json")
 const { getEndpoints, getUsers, getEvents, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound } = require('./controllers/events.controllers.js');
 const { handlePsqlError, handleCustomError, handleServerError } = require('./controllers/errors.controllers.js')
 
+console.log("App loaded, ready to accept requests");
+
 app.use(cors());
 
 app.use(express.json());
@@ -14,7 +16,10 @@ app.get("/api", getEndpoints);
 
 app.get("/api/users", getUsers)
 
-app.get("/api/events", getEvents)
+app.get("/api/events", (req, res) => {
+    console.log("Hit /api/events");
+    res.send("Testing events endpoint");
+  });
 
 app.get("/api/events/:username", getEventsByUser)
 
