@@ -16,10 +16,21 @@ app.get("/api", getEndpoints);
 
 app.get("/api/users", getUsers)
 
-app.get("/api/events", (req, res) => {
+app.get("/api/events", async (req, res) => {
     console.log("Hit /api/events");
-    res.send("Testing events endpoint");
+  
+    try {
+      const { data, error } = await getEvents();
+      if (error) throw error;
+  
+      console.log("Supabase data:", data);
+      res.json(data);
+    } catch (err) {
+      console.error("Error in getEvents:", err);
+      res.status(500).send("Internal Server Error");
+    }
   });
+  
 
 app.get("/api/events/:username", getEventsByUser)
 
