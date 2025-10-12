@@ -26,7 +26,7 @@ app.delete("/api/users/:username", deleteUser)
 
 app.delete("/api/events/:title", deleteEventByTitle)
 
-app.all('/*', pathNotFound);
+app.use(pathNotFound);
 
 app.use(handlePsqlError);
 
