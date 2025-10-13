@@ -23,7 +23,6 @@ const fetchEventById = (id) => {
     })
 };
 
-
 const fetchEventsByUser = (username) => {
     return db.query(
         `SELECT * FROM events WHERE username = $1`,
@@ -62,7 +61,7 @@ const removeUser = (username) => {
 
 const removeEventByTitle = (title) => {
     return db.query(
-        `DELETE FROM events WHERE title = $1 RETURNING title, description, location, event_date, username`, [title]
+        `DELETE FROM events WHERE title = $1 RETURNING id, title, description, location, event_date, username`, [title]
     )
     .then(({rows}) => {
         return rows[0];
