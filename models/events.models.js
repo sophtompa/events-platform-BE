@@ -14,6 +14,16 @@ const fetchEvents = () => {
     })
 };
 
+const fetchEventById = (id) => {
+    return db.query(
+        `SELECT * FROM events WHERE id = $1`,
+        [id])
+    .then(({rows}) => {
+        return rows
+    })
+};
+
+
 const fetchEventsByUser = (username) => {
     return db.query(
         `SELECT * FROM events WHERE username = $1`,
@@ -60,4 +70,4 @@ const removeEventByTitle = (title) => {
 };
 
 
-module.exports = { fetchUsers, fetchEvents, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle }
+module.exports = { fetchUsers, fetchEvents, fetchEventById, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle }
