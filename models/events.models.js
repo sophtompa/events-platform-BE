@@ -41,7 +41,7 @@ const sendUser = (username) => {
 };
 
 const sendEvent = (title, description, location, event_date, username) => {
-    return db.query(`INSERT INTO events(title, description, location, event_date, username) VALUES ($1, $2, $3, $4, $5) RETURNING title, description, location, event_date, username`, [title, description, location, event_date, username])
+    return db.query(`INSERT INTO events(title, description, location, event_date, username) VALUES ($1, $2, $3, $4, $5) RETURNING id, title, description, location, event_date, username`, [title, description, location, event_date, username])
     .then(({rows}) => {
         return rows[0] })
         .catch(err => {
