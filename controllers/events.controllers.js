@@ -63,7 +63,7 @@ const postUser = (req,res, next) => {
     .catch((err) => {
         next(err);
     })
-}
+};
 
 const postEvent = (req,res, next) => {
     const {title, description, location, event_date, username} = req.body;
