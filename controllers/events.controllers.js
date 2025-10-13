@@ -1,5 +1,5 @@
 const endpoints = require("../endpoints.json")
-const {fetchUsers, fetchEvents, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle} = require("../models/events.models")
+const {fetchUsers, fetchEvents, fetchEventById, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle} = require("../models/events.models")
 
 const getEndpoints = (req, res) => {
     return res.status(200).send({endpoints});
@@ -18,6 +18,18 @@ const getUsers = (req, res, next) => {
 const getEvents = (req, res, next) => {
     
     fetchEvents().then((events) => {
+        res.status(200).send({events})
+    })
+    .catch((err) => {
+        next(err);
+    })
+};
+
+const getEventById = (req, res, next) => {
+    const {id} = req.params;
+    
+    fetchEventById(id)
+    .then((events) => {
         res.status(200).send({events})
     })
     .catch((err) => {
@@ -93,4 +105,4 @@ const pathNotFound = (req, res, next) => {
     res.status(404).send({ msg: 'path not found' });
 };
 
-module.exports = { getEndpoints, getEvents, getUsers, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound }
+module.exports = { getEndpoints, getEvents, getUsers, getEventById, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound }

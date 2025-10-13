@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const db = require("./db/connection.js")
 const endpoints = require("./endpoints.json")
-const { getEndpoints, getUsers, getEvents, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound } = require('./controllers/events.controllers.js');
+const { getEndpoints, getUsers, getEvents, getEventById, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound } = require('./controllers/events.controllers.js');
 const { handlePsqlError, handleCustomError, handleServerError } = require('./controllers/errors.controllers.js')
 
 console.log("App loaded, ready to accept requests");
@@ -17,6 +17,8 @@ app.get("/api", getEndpoints);
 app.get("/api/users", getUsers)
 
 app.get("/api/events", getEvents);
+
+app.get("/api/events/:id", getEventById);
 
 app.get("/api/events/:username", getEventsByUser)
 
