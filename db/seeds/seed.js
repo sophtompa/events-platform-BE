@@ -39,7 +39,7 @@ function createTables ({eventsData, usersData}) {
     );
     })
     .then(()=>{
-        const formattedEvents = eventsData.map(({id, title, description, location, event_date, username}) => {
+        const formattedEvents = eventsData.map(({title, description, location, event_date, username}) => {
             return [id, title, description, location, event_date, username]
         });
         const eventsInsert = format(
