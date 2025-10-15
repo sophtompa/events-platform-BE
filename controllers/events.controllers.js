@@ -50,7 +50,6 @@ const getEventsByUser = (req, res, next) => {
 };
 
 const postUser = (req,res, next) => {
-    console.log("attemp controller post")
     const {username, password} = req.body;
 
     if(!username || !password) {
