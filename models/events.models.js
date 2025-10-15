@@ -33,8 +33,9 @@ const fetchEventsByUser = (username) => {
     })
 };
 
-const sendUser = (username) => {
-    return db.query(`INSERT INTO users(username) VALUES ($1) RETURNING *`, [username])
+const sendUser = (username, password) => {
+    console.log("attempt model send")
+    return db.query(`INSERT INTO users(username, password) VALUES ($1, $2) RETURNING *`, [username, password])
     .then(({rows}) => {
         return rows[0];
     });
