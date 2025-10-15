@@ -40,10 +40,10 @@ function createTables ({eventsData, usersData}) {
     })
     .then(()=>{
         const formattedEvents = eventsData.map(({title, description, location, event_date, username}) => {
-            return [id, title, description, location, event_date, username]
+            return [title, description, location, event_date, username]
         });
         const eventsInsert = format(
-            `INSERT INTO events(id, title, description, location, event_date, username) VALUES %L RETURNING *`, formattedEvents
+            `INSERT INTO events(title, description, location, event_date, username) VALUES %L RETURNING *`, formattedEvents
         );
         return db.query(eventsInsert)
     .then(({rows}) => rows)
