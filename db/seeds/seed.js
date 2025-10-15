@@ -14,14 +14,15 @@ const seed = (eventsData, usersData) =>{
 function createTables ({eventsData, usersData}) {
     return db.query(
         `CREATE TABLE users (
-        username VARCHAR(300) PRIMARY KEY);`
+        username VARCHAR(300) PRIMARY KEY,
+        password VARCHAR(300));`
     )
     .then(() => {
-        const formattedUsers = usersData.map(({username}) => {
-            return [username]
+        const formattedUsers = usersData.map(({username, password}) => {
+            return [username, password]
     });
     const usersInsert = format(
-        `INSERT INTO users(username) VALUES %L RETURNING *`, formattedUsers
+        `INSERT INTO users(username, password) VALUES %L RETURNING *`, formattedUsers
     );
     return db.query(usersInsert);
     })

@@ -50,13 +50,14 @@ const getEventsByUser = (req, res, next) => {
 };
 
 const postUser = (req,res, next) => {
-    const {username} = req.body;
+    console.log("attemp controller post")
+    const {username, password} = req.body;
 
-    if(!username) {
-        return res.status(400).json({error: 'Missing username'})
+    if(!username || !password) {
+        return res.status(400).json({error: 'Missing username or password'})
     }
 
-    sendUser(username)
+    sendUser(username, password)
     .then((user) => {
         return res.status(201).json({user});
     })
