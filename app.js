@@ -1,9 +1,11 @@
 const cors = require('cors')
 const express = require('express');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const app = express();
 const db = require("./db/connection.js")
 const endpoints = require("./endpoints.json")
-const { getEndpoints, getUsers, getEvents, getEventById, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound } = require('./controllers/events.controllers.js');
+const { getEndpoints, loginUser, getUsers, getEvents, getEventById, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound } = require('./controllers/events.controllers.js');
 const { handlePsqlError, handleCustomError, handleServerError } = require('./controllers/errors.controllers.js')
 
 console.log("App loaded, ready to accept requests");
@@ -21,6 +23,8 @@ app.get("/api/events", getEvents);
 app.get("/api/events/:id", getEventById);
 
 app.get("/api/events/:username", getEventsByUser)
+
+app.post("/api/login", loginUser)
 
 app.post("/api/users", postUser)
 

@@ -1,5 +1,34 @@
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const endpoints = require("../endpoints.json")
-const {fetchUsers, fetchEvents, fetchEventById, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle} = require("../models/events.models")
+const {fetchUsers, fetchuserByUsername, fetchEvents, fetchEventById, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle} = require("../models/events.models")
+
+const loginUser = (req, res, next) => {
+    const { username, password } = req.body;
+
+    fetchuserByUsername(username)
+    .then((user) => {
+        if (!user) {
+            return res.status(401).json({ error: "Invalid credentials" });
+        }
+
+        return bcrypt.compare(password, user.password)
+        .then((valid) => {
+            if (!valid) {
+                return res.status(401).json({ error: "Invalid credentials" });
+            }
+
+        const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, {
+        expiresIn: "24h",
+        });
+        
+        res.json({ token });
+        });
+    })
+    .catch((err) => {
+        next(err);
+    });
+};
 
 const getEndpoints = (req, res) => {
     return res.status(200).send({endpoints});
@@ -56,7 +85,12 @@ const postUser = (req,res, next) => {
         return res.status(400).json({error: 'Missing username or password'})
     }
 
-    sendUser(username, password)
+    const saltRounds = 10
+
+    bcrypt.hash(password, saltRounds)
+        .then((hashedPassword) => {
+            return sendUser(username, hashedPassword)
+        })
     .then((user) => {
         return res.status(201).json({user});
     })
@@ -105,4 +139,4 @@ const pathNotFound = (req, res, next) => {
     res.status(404).send({ msg: 'path not found' });
 };
 
-module.exports = { getEndpoints, getEvents, getUsers, getEventById, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound }
+module.exports = { getEndpoints, loginUser, getUsers, getEvents, getEventById, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound }
