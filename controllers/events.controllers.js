@@ -95,6 +95,9 @@ const postUser = (req,res, next) => {
         return res.status(201).json({user});
     })
     .catch((err) => {
+        if (err.code === '23505') {
+            return res.status(409).json({error: 'Username already exists'});
+        }
         next(err);
     })
 };
