@@ -1,12 +1,12 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const endpoints = require("../endpoints.json")
-const {fetchUsers, fetchuserByUsername, fetchEvents, fetchEventById, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle} = require("../models/events.models")
+const {fetchUsers, fetchUserByUsername, fetchEvents, fetchEventById, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle} = require("../models/events.models")
 
 const loginUser = (req, res, next) => {
     const { username, password } = req.body;
 
-    fetchuserByUsername(username)
+    fetchUserByUsername(username)
     .then((user) => {
         if (!user) {
             return res.status(401).json({ error: "Invalid credentials" });

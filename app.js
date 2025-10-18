@@ -22,7 +22,7 @@ app.get("/api/events", getEvents);
 
 app.get("/api/events/:id", getEventById);
 
-app.get("/api/events/:username", getEventsByUser)
+app.get("/api/events/user/:username", getEventsByUser)
 
 app.post("/api/login", loginUser)
 
