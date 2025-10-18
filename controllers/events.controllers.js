@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const endpoints = require("../endpoints.json")
-const {fetchUsers, fetchUserByUsername, fetchEvents, fetchEventById, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle} = require("../models/events.models")
+const {fetchUsers, fetchUserByUsername, fetchEvents, fetchEventById, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventById} = require("../models/events.models")
 
 const loginUser = (req, res, next) => {
     const { username, password } = req.body;
@@ -120,18 +120,22 @@ const postEvent = (req,res, next) => {
 
 const deleteUser = (req, res, next) => {
     const {username} = req.params;
-    removeUser(username).then((rows) => {
-        return res.status(204).send(rows)
+    removeUser(username).then((deletedUser) => {
+        if (!deletedUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.status(200).json({ success: true, deletedUser });
     })
-    .catch((err) => {
-        next(err);
-    })
-}
+    .catch((err) => next(err));
+};
 
-const deleteEventByTitle = (req, res, next) => {
-    const {title} = req.params;
-    removeEventByTitle(title).then((rows) => {
-        return res.status(204).send(rows)
+const deleteEventById = (req, res, next) => {
+    const {id} = req.params;
+    removeEventById(id).then((deletedEvent) => {
+        if (!deletedEvent) {
+            return res.status(404).json({ error: "Event not found" });
+        }
+        res.status(200).json({ success: true, deletedEvent });
     })
     .catch((err) => {
         next(err);
@@ -142,4 +146,4 @@ const pathNotFound = (req, res, next) => {
     res.status(404).send({ msg: 'path not found' });
 };
 
-module.exports = { getEndpoints, loginUser, getUsers, getEvents, getEventById, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound }
+module.exports = { getEndpoints, loginUser, getUsers, getEvents, getEventById, getEventsByUser, postUser, postEvent, deleteUser, deleteEventById, pathNotFound }

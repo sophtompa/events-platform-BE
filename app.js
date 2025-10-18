@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const db = require("./db/connection.js")
 const endpoints = require("./endpoints.json")
-const { getEndpoints, loginUser, getUsers, getEvents, getEventById, getEventsByUser, postUser, postEvent, deleteUser, deleteEventByTitle, pathNotFound } = require('./controllers/events.controllers.js');
+const { getEndpoints, loginUser, getUsers, getEvents, getEventById, getEventsByUser, postUser, postEvent, deleteUser, deleteEventById, pathNotFound } = require('./controllers/events.controllers.js');
 const { handlePsqlError, handleCustomError, handleServerError } = require('./controllers/errors.controllers.js')
 
 console.log("App loaded, ready to accept requests");
@@ -32,7 +32,7 @@ app.post("/api/events", postEvent)
 
 app.delete("/api/users/:username", deleteUser)
 
-app.delete("/api/events/:title", deleteEventByTitle)
+app.delete("/api/events/:id", deleteEventById)
 
 app.use(pathNotFound);
 
