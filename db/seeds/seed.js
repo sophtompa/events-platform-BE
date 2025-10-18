@@ -14,8 +14,8 @@ const seed = (eventsData, usersData) =>{
 function createTables ({eventsData, usersData}) {
     return db.query(
         `CREATE TABLE users (
-        username VARCHAR(300) PRIMARY KEY,
-        password VARCHAR(300));`
+        username VARCHAR(100) UNIQUE NOT NULL PRIMARY KEY,
+        password TEXT);`
     )
     .then(() => {
         const formattedUsers = usersData.map(({username, password}) => {
