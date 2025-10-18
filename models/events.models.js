@@ -66,9 +66,9 @@ const removeUser = (username) => {
     })
 };
 
-const removeEventByTitle = (title) => {
+const removeEventById = (id) => {
     return db.query(
-        `DELETE FROM events WHERE title = $1 RETURNING id, title, description, location, event_date, username`, [title]
+        `DELETE FROM events WHERE id = $1 RETURNING id, title, description, location, event_date, username`, [id]
     )
     .then(({rows}) => {
         return rows[0];
@@ -76,4 +76,4 @@ const removeEventByTitle = (title) => {
 };
 
 
-module.exports = { fetchUsers, fetchUserByUsername, fetchEvents, fetchEventById, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventByTitle }
+module.exports = { fetchUsers, fetchUserByUsername, fetchEvents, fetchEventById, fetchEventsByUser, sendUser, sendEvent, removeUser, removeEventById }
