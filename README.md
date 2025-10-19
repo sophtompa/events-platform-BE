@@ -4,7 +4,7 @@
 
 #### This project showcases the backend of a Node.js events app, which uses PostgreSQL to send/retrieve data from the database.
 
-#### Features include the ability to view all existing events and users, to create a staff account and post new events, and delete any events posted from your account. It is also possible to sign up to an event, and add it to your google calendar.
+#### Features include the ability to view all existing events and users, to create a staff account and post new events, and delete any events posted from your account. The backend also deals with password security, using bcrypt and web tokens to store data. When an account is made and a password entered, the password is hashed, and stored in the database, to keep user data secure.
 
 #### Link to the hosted version: https://events-platform-be-cxuw.onrender.com
 
