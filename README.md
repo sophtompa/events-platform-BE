@@ -27,4 +27,4 @@ Include this .env file in .gitignore
 
 #### Installations:
 
-The project also requires the installation of 'dotenv', 'express', 'pg', 'pgformat', and 'cors', using `npm i (installation-name)`
+The project also requires the installation of 'dotenv', 'express', 'pg', 'pgformat', 'cors', 'bcryptjs' and 'jsonwebtoken' using `npm i (installation-name)`
