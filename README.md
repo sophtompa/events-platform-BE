@@ -20,7 +20,7 @@ To set up and seed the database, run the command `npm run setup-dbs`, followed b
 
 ### Setup .env files
 
-Create a file named '.env.production'.
+Create a file named '.env.dev'.
 Populate this with the ENV variable 'PGDATABASE=events_db'.
 
 Include this .env file in .gitignore
