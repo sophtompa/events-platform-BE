@@ -16,7 +16,7 @@ Firstly, clone the repo to your device, using the command `git clone`.
 
 ### Setup the database
 
-To set up and seed the database, run the command `npm run setup-dbs`, followed by `npm run seed`. This will seed the database with two default users and two default events.
+To set up and seed the database, run the command `npm run setup-dbs`, followed by `npm run seed`. This will seed the database with two default users and two default events. These users have been removed on the hosted version.
 
 ### Setup .env files
 
