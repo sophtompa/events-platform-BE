@@ -10,15 +10,15 @@
 
 ## Setup Instructions
 
-### Clone the repo
+#### Clone the repo
 
 Firstly, clone the repo to your device, using the command `git clone`.
 
-### Setup the database
+#### Setup the database
 
 To set up and seed the database, run the command `npm run setup-dbs`, followed by `npm run seed`. This will seed the database with two default users and two default events. These users have been removed on the hosted version.
 
-### Setup .env files
+#### Setup .env files
 
 Create a file named '.env.dev'.
 Populate this with the ENV variable 'PGDATABASE=events_db'.
