@@ -29,6 +29,6 @@ Include this .env file in .gitignore
 
 The project also requires the installation of 'dotenv', 'express', 'pg', 'pgformat', 'cors', 'bcryptjs' and 'jsonwebtoken' using `npm i (installation-name)`
 
-#### Host the application
+#### Locally host the application
 
 Make sure the file 'listen.js' is in the directory, adn run the command `node listen.js` to locally host the server.
