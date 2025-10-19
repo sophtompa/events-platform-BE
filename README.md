@@ -4,7 +4,7 @@
 
 #### This project showcases the backend of a Node.js events app, which uses PostgreSQL to send/retrieve data from the database.
 
-#### Features include the ability to view all existing events and users; the ability to create a staff account and post new events, and delete any events posted from your account. It is also possible to sign up to an event, and add it to your google calendar.
+#### Features include the ability to view all existing events and users, to create a staff account and post new events, and delete any events posted from your account. It is also possible to sign up to an event, and add it to your google calendar.
 
 #### Link to the hosted version: https://events-platform-be-cxuw.onrender.com
 
